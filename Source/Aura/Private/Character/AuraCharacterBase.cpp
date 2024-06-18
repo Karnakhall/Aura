@@ -15,6 +15,11 @@ AAuraCharacterBase::AAuraCharacterBase()
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);	// Disable collision for weapon mesh
 }
 
+UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const	// Get ability system component
+{
+	return AbilitySystemComponent;
+}
+
 // Called when the game starts or when spawned
 void AAuraCharacterBase::BeginPlay()
 {
