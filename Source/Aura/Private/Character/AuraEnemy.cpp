@@ -12,6 +12,7 @@ AAuraEnemy::AAuraEnemy()
 
 	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");	// Create ability system component
 	AbilitySystemComponent->SetIsReplicated(true);	// Enable replication for ability system component
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);	// Set replication mode for ability system component. We use minimal replication mode here because is AI character
 
 	AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AttributeSet");	// Create attribute set
 }
@@ -28,4 +29,11 @@ void AAuraEnemy::UnHighLightActor()
 {
 	GetMesh()->SetRenderCustomDepth(false);
 	Weapon->SetRenderCustomDepth(false);
+}
+
+void AAuraEnemy::BeginPlay()
+{
+	Super::BeginPlay();
+	check(AbilitySystemComponent);	// Check ability system component
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);		// Init ability actor info
 }
