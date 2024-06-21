@@ -10,13 +10,13 @@ class UAttributeSet;	//Forward declaration of UAttributeSet
 class UAbilitySystemComponent;	//Forward declaration of UAbilitySystemComponent
 
 USTRUCT(BlueprintType)
-struct FWidgetControllerParams
+struct FWidgetControllerParams	//Struct to hold the parameters for the widget controller
 {
 	GENERATED_BODY()
 
-	FWidgetControllerParams() {}
+	FWidgetControllerParams() {}	
 	FWidgetControllerParams(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS) 
-		: PlayerController(PC), PlayerState(PS), AbilitySystemComponent(ASC), AttributeSet(AS)  {}
+		: PlayerController(PC), PlayerState(PS), AbilitySystemComponent(ASC), AttributeSet(AS) {}	//Constructor to set the parameters
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TObjectPtr<APlayerController> PlayerController = nullptr;
