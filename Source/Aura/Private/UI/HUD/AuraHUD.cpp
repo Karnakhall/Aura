@@ -20,9 +20,14 @@ UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetCont
 
 void AAuraHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)	//
 {
-	checkf(OverlayWidgetClass, TEXT("Overlay Widget Class uninitialized, please fill out BP_AuraHUD"))
+	checkf(OverlayWidgetClass, TEXT("Overlay Widget Class uninitialized, please fill out BP_AuraHUD"));	// Check if the overlay widget class is initialized
+	checkf(OverlayWidgetControllerClass, TEXT("Overlay Widget Controller Class, uninitialized, please fill out BP_AuraHUD"));	// Check if the overlay widget controller class is initialized
 
-	UUserWidget* Widget = CreateWidget<UUserWidget>(GetWorld(), OverlayWidgetClass);
+	UUserWidget* Widget = CreateWidget<UUserWidget>(GetWorld(), OverlayWidgetClass);	// Create a new user widget
+	OverlayWidget = Cast<UAuraUserWidget>(Widget);	// Cast the widget to an Aura user widget
+	
+
+
 	Widget->AddToViewport();
 }
 
