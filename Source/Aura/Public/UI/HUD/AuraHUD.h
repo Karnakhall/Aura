@@ -8,6 +8,9 @@
 
 class UOverlayWidgetController;
 class UAuraUserWidget;
+class UAbilitySystemComponent;
+class UAttributeSet;
+
 struct FWidgetControllerParams;
 /**
  * 
