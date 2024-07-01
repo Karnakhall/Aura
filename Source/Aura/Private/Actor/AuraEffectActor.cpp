@@ -1,7 +1,9 @@
 // Copyright Karnakhall
-
-
 #include "Actor/AuraEffectActor.h"
+
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
+#include "AbilitySystemInterface.h"
 
 
 // Sets default values
@@ -36,6 +38,16 @@ void AAuraEffectActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+void AAuraEffectActor::ApplyEffectToTarget(AActor* Target, TSubclassOf<UGameplayEffect> GameplayEffectClass)	// This is the function that will apply the effect to the target
+{
+	IAbilitySystemInterface* ASCInterface = Cast<IAbilitySystemInterface>(Target);	// Get the Ability System Interface of the target actor
+	if (ASCInterface)
+	{
+		ASCInterface->GetAbilitySystemComponent();
+		UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Target);
+	}
 }
 
 
