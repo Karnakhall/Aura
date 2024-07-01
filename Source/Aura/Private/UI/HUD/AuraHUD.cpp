@@ -11,6 +11,7 @@ UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetCont
 	{
 		OverlayWidgetController = NewObject<UOverlayWidgetController>(this, OverlayWidgetControllerClass);	// Create a new overlay widget controller
 		OverlayWidgetController->SetWidgetControllerParams(WCParams);	// Set the parameters for the widget controller
+		OverlayWidgetController->BindCallbacksToDependencies();	// Bind the callbacks to the dependencies. Then we will be able to call the functions when the attributes change in game
 		//OverlayWidgetController->AddToRoot();
 
 		return OverlayWidgetController;
