@@ -3,7 +3,7 @@
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
-#include "AbilitySystemInterface.h"
+
 
 
 // Sets default values
@@ -42,12 +42,14 @@ void AAuraEffectActor::BeginPlay()
 
 void AAuraEffectActor::ApplyEffectToTarget(AActor* Target, TSubclassOf<UGameplayEffect> GameplayEffectClass)	// This is the function that will apply the effect to the target
 {
-	IAbilitySystemInterface* ASCInterface = Cast<IAbilitySystemInterface>(Target);	// Get the Ability System Interface of the target actor
-	if (ASCInterface)
-	{
-		ASCInterface->GetAbilitySystemComponent();
-		UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Target);
-	}
+	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Target);	// Get the Ability System Component of the target actor. Stored in pointer TargetASC.
+	if (TargetASC == nullptr) return;	// If the TargetASC is null, return. This is a safety check to prevent crashes.
+
+	check(GameplayEffectClass);	// Check if the GameplayEffectClass is valid. If not, assert.
+	FGameplayEffectContextHandle EffectContextHandle = TargetASC->MakeEffectContext();	// Create a new Effect Context Handle
+	EffectContextHandle.AddSourceObject(this);	// Add the source object to the Effect Context Handle
+	const FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.f, EffectContextHandle);	// Create a new Effect Spec Handle
+	TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());		// Apply the Effect Spec Handle to the target actor. Dereference the Effect Spec Handle to get the data and pass it to ApplyGameplayEffectSpecToSelf.
 }
 
 
