@@ -40,9 +40,9 @@ void AAuraEffectActor::BeginPlay()
 	
 }
 
-void AAuraEffectActor::ApplyEffectToTarget(AActor* Target, TSubclassOf<UGameplayEffect> GameplayEffectClass)	// This is the function that will apply the effect to the target
+void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)	// This is the function that will apply the effect to the target
 {
-	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Target);	// Get the Ability System Component of the target actor. Stored in pointer TargetASC.
+	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);	// Get the Ability System Component of the target actor. Stored in pointer TargetASC.
 	if (TargetASC == nullptr) return;	// If the TargetASC is null, return. This is a safety check to prevent crashes.
 
 	check(GameplayEffectClass);	// Check if the GameplayEffectClass is valid. If not, assert.
