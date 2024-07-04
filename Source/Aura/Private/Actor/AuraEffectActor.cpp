@@ -52,12 +52,28 @@ void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGam
 	TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());		// Apply the Effect Spec Handle to the target actor. Dereference the Effect Spec Handle to get the data and pass it to ApplyGameplayEffectSpecToSelf.
 }
 
-void AAuraEffectActor::OnOverlap(AActor* TargetActor)
+void AAuraEffectActor::OnOverlap(AActor* TargetActor)	// This function will be called when the actor overlaps with another actor
 {
+	if (InstantEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
+	{
+		ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);		// Apply the instant effect to the target actor
+	}
+	if (DurationEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
+	{
+		ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);		// Apply the duration effect to the target actor
+	}
 }
 
-void AAuraEffectActor::OnEndOverlap(AActor* TargetActor)
+void AAuraEffectActor::OnEndOverlap(AActor* TargetActor)	// This function will be called when the actor ends overlap with another actor
 {
+	if (InstantEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)	
+	{
+		ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);		// Apply the instant effect to the target actor
+	}
+	if (DurationEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
+	{
+		ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);		// Apply the duration effect to the target actor
+	}
 }
 
 
