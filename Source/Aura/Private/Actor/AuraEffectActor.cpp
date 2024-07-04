@@ -49,7 +49,13 @@ void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGam
 	FGameplayEffectContextHandle EffectContextHandle = TargetASC->MakeEffectContext();	// Create a new Effect Context Handle
 	EffectContextHandle.AddSourceObject(this);	// Add the source object to the Effect Context Handle
 	const FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.f, EffectContextHandle);	// Create a new Effect Spec Handle
-	TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());		// Apply the Effect Spec Handle to the target actor. Dereference the Effect Spec Handle to get the data and pass it to ApplyGameplayEffectSpecToSelf.
+	const FActiveGameplayEffectHandle ActiveEffectHandle = TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());		// Apply the effect to the target actor. // Apply the Effect Spec Handle to the target actor. Dereference the Effect Spec Handle to get the data and pass it to ApplyGameplayEffectSpecToSelf.
+
+	const bool bIsInfinite = EffectSpecHandle.Data.Get()->Def.Get()->DurationPolicy == EGameplayEffectDurationType::Infinite; // Check if the effect is infinite
+	if (bIsInfinite && InfiniteEffectRemovalPolicy == EEffectRemovalPolicy::RemoveOnEndOverlap)	//
+	{
+		ActiveEffectHandles.Add(ActiveEffectHandle, TargetASC);	// Add the Active Effect Handle to the Active Effect Handles array
+	}
 }
 
 void AAuraEffectActor::OnOverlap(AActor* TargetActor)	// This function will be called when the actor overlaps with another actor
@@ -62,6 +68,10 @@ void AAuraEffectActor::OnOverlap(AActor* TargetActor)	// This function will be c
 	{
 		ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);		// Apply the duration effect to the target actor
 	}
+	if (InfiniteEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
+	{
+		ApplyEffectToTarget(TargetActor, InfiniteGameplayEffectClass);		// Apply the infinite effect to the target actor
+	}
 }
 
 void AAuraEffectActor::OnEndOverlap(AActor* TargetActor)	// This function will be called when the actor ends overlap with another actor
@@ -73,6 +83,29 @@ void AAuraEffectActor::OnEndOverlap(AActor* TargetActor)	// This function will b
 	if (DurationEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
 	{
 		ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);		// Apply the duration effect to the target actor
+	}
+	if (InfiniteEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
+	{
+		ApplyEffectToTarget(TargetActor, InfiniteGameplayEffectClass);		// Apply the infinite effect to the target actor
+	}
+	if (InfiniteEffectRemovalPolicy == EEffectRemovalPolicy::RemoveOnEndOverlap)
+	{
+		UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);	// Get the Ability System Component of the target actor. Stored in pointer TargetASC.
+		if (!IsValid(TargetASC)) return;	// If the TargetASC is not valid, return. This is a safety check to prevent crashes.
+		
+		TArray<FActiveGameplayEffectHandle> HandlesToRemove;	// Create a new array of ActiveGameplayEffectHandles
+		for (TTuple<FActiveGameplayEffectHandle, UAbilitySystemComponent*> HandlePair : ActiveEffectHandles)	// Loop through the ActiveEffectHandles array
+		{
+			if (TargetASC == HandlePair.Value)	// If the TargetASC is equal to the value of the HandlePair
+			{
+				TargetASC->RemoveActiveGameplayEffect(HandlePair.Key, 1);	// Remove the active effect from the target actor
+				HandlesToRemove.Add(HandlePair.Key);	// Add the HandlePair.Key to the HandlesToRemove array
+			}
+		}
+		for (auto& Handle : HandlesToRemove)	// Loop through the HandlesToRemove array
+		{
+			ActiveEffectHandles.FindAndRemoveChecked(Handle);	// Find and remove the Handle from the ActiveEffectHandles array
+		}
 	}
 }
 
