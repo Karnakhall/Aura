@@ -48,7 +48,7 @@ void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGam
 	check(GameplayEffectClass);	// Check if the GameplayEffectClass is valid. If not, assert.
 	FGameplayEffectContextHandle EffectContextHandle = TargetASC->MakeEffectContext();	// Create a new Effect Context Handle
 	EffectContextHandle.AddSourceObject(this);	// Add the source object to the Effect Context Handle
-	const FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.f, EffectContextHandle);	// Create a new Effect Spec Handle
+	const FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, ActorLevel, EffectContextHandle);	// Create a new Effect Spec Handle
 	const FActiveGameplayEffectHandle ActiveEffectHandle = TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());		// Apply the effect to the target actor. // Apply the Effect Spec Handle to the target actor. Dereference the Effect Spec Handle to get the data and pass it to ApplyGameplayEffectSpecToSelf.
 
 	const bool bIsInfinite = EffectSpecHandle.Data.Get()->Def.Get()->DurationPolicy == EGameplayEffectDurationType::Infinite; // Check if the effect is infinite
