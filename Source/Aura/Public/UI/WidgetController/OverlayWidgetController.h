@@ -63,4 +63,13 @@ protected:
 	void MaxHealthChanged(const FOnAttributeChangeData& Data) const;	// Function to call when the max health changes
 	void ManaChanged(const FOnAttributeChangeData& Data) const;	// Function to call when the mana changes
 	void MaxManaChanged(const FOnAttributeChangeData& Data) const;	// Function to call when the max mana changes
+
+	template<typename T>	// Template function to get a row from a DataTable by tag
+	T* GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag);	// Function to get a row from a DataTable by tag
 };
+
+template<typename T>
+inline T* UOverlayWidgetController::GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag)
+{
+	return DataTable->FindRow<T>(Tag.GetTagName(), TEXT(""));
+}
