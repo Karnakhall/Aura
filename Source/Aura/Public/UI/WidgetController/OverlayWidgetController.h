@@ -28,10 +28,9 @@ struct FUIWidgetRow : public FTableRowBase
 
 
 class UAuraUserWidget;
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, float, NewHealth);	// Delegate to broadcast when the health changes
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangedSignature, float, NewMaxHealth);	// Delegate to broadcast when the max health changes
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnManaChangedSignature, float, NewMana);	// Delegate to broadcast when the mana changes
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxManaChangedSignature, float, NewMaxMana);	// Delegate to broadcast when the mana changes
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttributeChangedSignature, float, NewValue);
+
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessageWidgetRowSignature, FUIWidgetRow, Row);	// Delegate to broadcast when the mana changes
 
@@ -49,16 +48,16 @@ public:
 	virtual void BindCallbacksToDependencies() override;	// Function to bind the callbacks to the dependencies
 
 	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-	FOnHealthChangedSignature OnHealthChanged;
+	FOnAttributeChangedSignature OnHealthChanged;
 
 	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-	FOnMaxHealthChangedSignature OnMaxHealthChanged;
+	FOnAttributeChangedSignature OnMaxHealthChanged;
 
 	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-	FOnManaChangedSignature OnManaChanged;
+	FOnAttributeChangedSignature OnManaChanged;
 
 	UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-	FOnMaxManaChangedSignature OnMaxManaChanged;
+	FOnAttributeChangedSignature OnMaxManaChanged;
 
 	UPROPERTY(BlueprintAssignable, Category = "GAS|Messages")
 	FMessageWidgetRowSignature MessageWidgetRowDelegate;	// Delegate to broadcast when the mana changes
@@ -68,17 +67,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widget Data")
 	TObjectPtr<UDataTable> MessageWidgetDataTable;
 
-	void HealthChanged(const FOnAttributeChangeData& Data) const;	// Function to call when the health changes
-	void MaxHealthChanged(const FOnAttributeChangeData& Data) const;	// Function to call when the max health changes
-	void ManaChanged(const FOnAttributeChangeData& Data) const;	// Function to call when the mana changes
-	void MaxManaChanged(const FOnAttributeChangeData& Data) const;	// Function to call when the max mana changes
-
 	template<typename T>	// Template function to get a row from a DataTable by tag
 	T* GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag);	// Function to get a row from a DataTable by tag
 };
 
 template<typename T>
-inline T* UOverlayWidgetController::GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag)
+inline T* UOverlayWidgetController::GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag)	// Function to get a row from a DataTable by tag
 {
 	return DataTable->FindRow<T>(Tag.GetTagName(), TEXT(""));
 }
