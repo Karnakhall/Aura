@@ -10,9 +10,7 @@
 UAuraAttributeSet::UAuraAttributeSet()
 {
 	InitHealth(10.f);
-	InitMaxHealth(100.f);
-	InitMana(50.f);
-	InitMaxMana(100.f);
+	InitMana(10.f);
 }
 
 void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const	// Register variables for replication
@@ -58,13 +56,13 @@ void UAuraAttributeSet::PreAttributeBaseChange(const FGameplayAttribute& Attribu
 
 	if (Attribute == GetHealthAttribute())	// If the attribute is Health
 	{
-		//NewValue = FMath::Clamp(NewValue, 0.f, GetMaxHealth());	// Clamp the new value between 0 and MaxHealth
+		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxHealth());	// Clamp the new value between 0 and MaxHealth
 		UE_LOG(LogTemp, Warning, TEXT("Health: %f"), NewValue);	// Log a message
 	}
 	
 	if (Attribute == GetManaAttribute())	// If the attribute is Mana
 	{
-		//NewValue = FMath::Clamp(NewValue, 0.f, GetMaxMana());	// Clamp the new value between 0 and MaxMana
+		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxMana());	// Clamp the new value between 0 and MaxMana
 		UE_LOG(LogTemp, Warning, TEXT("Mana: %f"), NewValue);	// Log a message
 	}
 }
