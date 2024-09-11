@@ -5,6 +5,7 @@
 
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAttributeSet.h"
+#include "Net/UnrealNetwork.h"
 
 AAuraPlayerState::AAuraPlayerState()
 {
@@ -17,7 +18,23 @@ AAuraPlayerState::AAuraPlayerState()
 	NetUpdateFrequency = 100.f;
 }
 
+void AAuraPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);		// Call the parent class's GetLifetimeReplicatedProps function
+
+	DOREPLIFETIME_CONDITION_NOTIFY(AAuraPlayerState, Level, COND_None, REPNOTIFY_Always);	// Replicate Level attribute
+	/*DOREPLIFETIME_CONDITION_NOTIFY(AAuraPlayerState, Experience, COND_None, REPNOTIFY_Always);	// Replicate Experience attribute
+	DOREPLIFETIME_CONDITION_NOTIFY(AAuraPlayerState, Gold, COND_None, REPNOTIFY_Always);	// Replicate Gold attribute
+	DOREPLIFETIME_CONDITION_NOTIFY(AAuraPlayerState, AbilityPoints, COND_None, REPNOTIFY_Always);	// Replicate AbilityPoints attribute
+	DOREPLIFETIME_CONDITION_NOTIFY(AAuraPlayerState, AttributePoints, COND_None, REPNOTIFY_Always);	// Replicate AttributePoints attribute
+	*/
+}
+
 UAbilitySystemComponent* AAuraPlayerState::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
+}
+
+void AAuraPlayerState::OnRep_Level(int32 OldLevel)
+{
 }
