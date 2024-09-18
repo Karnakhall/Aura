@@ -2,10 +2,15 @@
 
 
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "AuraGameplayTags.h"
 
 void UAuraAbilitySystemComponent::AbilityActorInfoSet()
 {
 	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAuraAbilitySystemComponent::EffectApplied);	// Bind the EffectApplied function to the OnGameplayEffectAppliedDelegateToSelf
+	
+	const FAuraGameplayTags& GameplayTags = FAuraGameplayTags::Get();		// Get the Aura Gameplay Tags
+	
+	GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::Orange, FString::Printf(TEXT("Tag: %s"), *GameplayTags.Attributes_Secondary_Armor.ToString()));	// Print the tag to the screen
 }
 
 void UAuraAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle)
