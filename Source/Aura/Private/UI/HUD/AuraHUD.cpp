@@ -3,6 +3,7 @@
 
 #include "UI/HUD/AuraHUD.h"
 #include "UI/Widget/AuraUserWidget.h"
+#include "UI/WidgetController/AttributeMenuWidgetController.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
 
 UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetControllerParams& WCParams)	// Function to get the overlay widget controller
@@ -13,10 +14,20 @@ UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetCont
 		OverlayWidgetController->SetWidgetControllerParams(WCParams);	// Set the parameters for the widget controller
 		OverlayWidgetController->BindCallbacksToDependencies();	// Bind the callbacks to the dependencies. Then we will be able to call the functions when the attributes change in game
 		//OverlayWidgetController->AddToRoot();
-
-		return OverlayWidgetController;
 	}
 	return OverlayWidgetController;
+}
+
+UAttributeMenuWidgetController* AAuraHUD::GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams)
+{
+	if (AttributeMenuWidgetController == nullptr)
+	{
+		AttributeMenuWidgetController = NewObject<UAttributeMenuWidgetController>(this, AttributeMenuWidgetControllerClass);	// Create a new attribute menu widget controller
+		AttributeMenuWidgetController->SetWidgetControllerParams(WCParams);	// Set the parameters for the widget controller
+		AttributeMenuWidgetController->BindCallbacksToDependencies();	// Bind the callbacks to the dependencies. Then we will be able to call the functions when the attributes change in game
+		//AttributeMenuWidgetController->AddToRoot();
+	}
+	return AttributeMenuWidgetController;
 }
 
 void AAuraHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS)	//
