@@ -17,10 +17,10 @@ void UAttributeMenuWidgetController::BroadcastInitialValues()
 
 	check(AttributeInfo);
 
-	FAuraAttributeInfo Info = AttributeInfo->FindAttributeInfo(FAuraGameplayTags::Get().Attributes_Primary_Strength);
+	FAuraAttributeInfo StrengthInfo = AttributeInfo->FindAttributeInfoForTag(FAuraGameplayTags::Get().Attributes_Primary_Strength);
 
-	Info.AttributeValue = AS->GetStrength();
+	StrengthInfo.AttributeValue = AS->GetStrength();
 	
-	AttributeInfoDelegate.Broadcast(Info);
+	AttributeInfoDelegate.Broadcast(StrengthInfo);
 	
 }
