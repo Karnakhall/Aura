@@ -9,6 +9,19 @@
 
 void UAttributeMenuWidgetController::BindCallbacksToDependencies()
 {
+	UAuraAttributeSet* AS = CastChecked<UAuraAttributeSet>(AttributeSet);	// Cast the attribute set to the Aura attribute set
+	check(AttributeInfo);		// Check if the attribute info is valid
+	for (auto& Pair : AS->TagsToAttributes)		// Iterate over the tags to attributes map
+	{
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(Pair.Value()).AddLambda(
+			[this, Pair](const FOnAttributeChangeData& Data)
+			{
+				BroadcastAttributeInfo(Pair.Key, Pair.Value());		// Broadcast the attribute info
+			}
+		);
+	}
+	
+	
 }
 
 void UAttributeMenuWidgetController::BroadcastInitialValues()
@@ -26,9 +39,14 @@ void UAttributeMenuWidgetController::BroadcastInitialValues()
 
 	for (auto& Pair : AS->TagsToAttributes)		// Iterate over the tags to attributes map
 	{
-		FAuraAttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(Pair.Key);		// Find the attribute info for the tag
-		Info.AttributeValue = Pair.Value.Execute().GetNumericValue(AS);		// Set the attribute value
-		AttributeInfoDelegate.Broadcast(Info);		// Broadcast the attribute info
+		BroadcastAttributeInfo(Pair.Key, Pair.Value());		// Broadcast the attribute info
 	}
 	
+}
+
+void UAttributeMenuWidgetController::BroadcastAttributeInfo(const FGameplayTag& AttributeTag, const FGameplayAttribute& Attribute) const
+{
+	FAuraAttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(AttributeTag);		// Find the attribute info for the tag
+	Info.AttributeValue = Attribute.GetNumericValue(AttributeSet);		// Get the numeric value of the attribute
+	AttributeInfoDelegate.Broadcast(Info);		// Broadcast the attribute info
 }

@@ -2,10 +2,11 @@
 
 
 #include "AbilitySystem/AuraAttributeSet.h"
+
+#include "AbilitySystemBlueprintLibrary.h"
 #include "GameFramework/Character.h"
 #include "GameplayEffectExtension.h"
 #include "Net/UnrealNetwork.h"
-#include "AbilitySystemBlueprintLibrary.h"
 #include "AuraGameplayTags.h"
 
 UAuraAttributeSet::UAuraAttributeSet()
@@ -17,13 +18,31 @@ UAuraAttributeSet::UAuraAttributeSet()
 
 	const FAuraGameplayTags& GameplayTags = FAuraGameplayTags::Get();	// Get the Aura Gameplay Tags
 
-	FAttributeSignature StrengthDelegate;
-	StrengthDelegate.BindStatic(GetStrengthAttribute);	// Bind the Strength attribute to the StrengthDelegate
-	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Strength, StrengthDelegate);	// Add the Strength attribute to the TagsToAttributes map
+	/*FAttributeSignature StrengthDelegate;
+	StrengthDelegate.BindStatic(GetStrengthAttribute);	// Bind the Strength attribute to the StrengthDelegate*/
+	/*FAttributeSignature IntelligenceDelegate;
+	IntelligenceDelegate.BindStatic(GetIntelligenceAttribute);	// Bind the Intelligence attribute to the IntelligenceDelegate*/
+	/*FunctionPointer = GetIntelligenceAttribute;	// Set the FunctionPointer to the Intelligence attribute
+	FGameplayAttribute Attribute = FunctionPointer();	// Get the attribute from the FunctionPointer*/
+	
+	/* Primary Attributes */
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Strength, GetStrengthAttribute);	// Add the Strength attribute to the TagsToAttributes map
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Intelligence, GetIntelligenceAttribute);	// Add the Intelligence attribute to the TagsToAttributes map
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Resilience, GetResilienceAttribute);	// Add the Resilience attribute to the TagsToAttributes map
+	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Vigor, GetVigorAttribute);	// Add the Vigor attribute to the TagsToAttributes map
 
-	FAttributeSignature IntelligenceDelegate;
-	IntelligenceDelegate.BindStatic(GetIntelligenceAttribute);	// Bind the Intelligence attribute to the IntelligenceDelegate
-	TagsToAttributes.Add(GameplayTags.Attributes_Primary_Intelligence, IntelligenceDelegate);	// Add the Intelligence attribute to the TagsToAttributes map
+	/* Secondary Attributes */
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_Armor, GetArmorAttribute);	// Add the Armor attribute to the TagsToAttributes map
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_ArmorPenetration, GetArmorPenetrationAttribute);	// Add the ArmorPenetration attribute to the TagsToAttributes map
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_BlockChance, GetBlockChanceAttribute);	// Add the BlockChance attribute to the TagsToAttributes map
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_CriticalHitChance, GetCriticalHitChanceAttribute);	// Add the CriticalHitChance attribute to the TagsToAttributes map
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_CriticalHitResistance, GetCriticalHitResistanceAttribute);	// Add the CriticalHitResistance attribute to the TagsToAttributes map
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_CriticalHitDamage, GetCriticalHitDamageAttribute);	// Add the CriticalHitDamage attribute to the TagsToAttributes map
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_HealthRegeneration, GetHealthRegenerationAttribute);	// Add the HealthRegeneration attribute to the TagsToAttributes map
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_ManaRegeneration, GetManaRegenerationAttribute);	// Add the ManaRegeneration attribute to the TagsToAttributes map
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_MaxHealth, GetMaxHealthAttribute);	// Add the MaxHealth attribute to the TagsToAttributes map
+	TagsToAttributes.Add(GameplayTags.Attributes_Secondary_MaxMana, GetMaxManaAttribute);	// Add the MaxMana attribute to the TagsToAttributes map
+	
 }
 
 void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const	// Register variables for replication
