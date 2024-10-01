@@ -20,6 +20,8 @@ public:
 
 	FEffectAssetTags EffectAssetTags;	// Delegate to broadcast the tags of an effect
 
+	void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities);	
+
 protected:
 
 	void EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);	// Called when an effect is applied to the owner of this component
