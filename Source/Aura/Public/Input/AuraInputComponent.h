@@ -37,7 +37,7 @@ inline void UAuraInputComponent::BindAbilityActions(const UAuraInputConfig* Inpu
 
 			if (ReleasedFunc)
 			{
-				BindAction(Action.InputAction, ETriggerEvent::Completed, Object, ReleasedFunc, Action.InputTag)
+				BindAction(Action.InputAction, ETriggerEvent::Completed, Object, ReleasedFunc, Action.InputTag);
 			}
 
 			if (HeldFunc)
