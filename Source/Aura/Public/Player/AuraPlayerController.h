@@ -14,6 +14,7 @@ class UInputAction;
 struct FInputActionValue;	// Forward declaration
 class IEnemyInterface;	// Forward declaration
 class UAuraInputConfig;
+class UAuraAbilitySystemComponent;
 
 /**
  * 
@@ -50,4 +51,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UAuraInputConfig> InputConfig;
+
+	UPROPERTY()
+	TObjectPtr<UAuraAbilitySystemComponent> AuraAbilitySystemComponent;
+
+	UAuraAbilitySystemComponent* GetASC();
 };
