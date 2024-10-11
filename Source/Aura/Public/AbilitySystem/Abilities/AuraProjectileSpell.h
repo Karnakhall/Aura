@@ -26,3 +26,4 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)	
 	TSubclassOf<AAuraProjectile> ProjectileClass;
 };
+// jak odpaliæ github copilot
