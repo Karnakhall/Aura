@@ -143,12 +143,12 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
 	{
-		GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Green, FString::Printf(TEXT("Health: %f"), GetHealth()));	// Print a message to the screen
+		//GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Green, FString::Printf(TEXT("Health: %f"), GetHealth()));	// Print a message to the screen
 		//SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));	// Clamp the Health between 0 and MaxHealth if it doesn't change before
 	}
 	if (Data.EvaluatedData.Attribute == GetManaAttribute())
 	{
-		GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Green, FString::Printf(TEXT("Mana: %f"), GetMana()));	// Print a message to the screen
+		//GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Green, FString::Printf(TEXT("Mana: %f"), GetMana()));	// Print a message to the screen
 		//SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));	// Clamp the Mana between 0 and MaxMana if it doesn't change before
 	}
 }
