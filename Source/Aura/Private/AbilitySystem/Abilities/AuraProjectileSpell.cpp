@@ -13,14 +13,20 @@ void UAuraProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Hand
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
-	const bool bIsServer = HasAuthority(&ActivationInfo);
+	
+}
+
+void UAuraProjectileSpell::SpawnProjectile()
+{
+	
+	const bool bIsServer = GetAvatarActorFromActorInfo()->HasAuthority();
 	if (!bIsServer) return;
 
 	ICombatInterface* CombatInterface = Cast<ICombatInterface>(GetAvatarActorFromActorInfo());		// Get the combat interface from the avatar actor
 	if (CombatInterface)
 	{
 		const FVector SocketLocation = CombatInterface->GetCombatSocketLocation();		// Get the socket location from the combat interface
-		
+
 		FTransform SpawnTransform;
 		SpawnTransform.SetLocation(SocketLocation);
 		//TODO: Set the rotation of the projectile.
@@ -37,5 +43,5 @@ void UAuraProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Hand
 		Projectile->FinishSpawning(SpawnTransform);
 	}
 
-	
+
 }
