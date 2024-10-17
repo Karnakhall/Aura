@@ -48,7 +48,8 @@ void AAuraProjectile::Destroyed()
 	{
 		UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
 		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
-		LoopingSoundComponent;
+		//TODO Sprawdziæ czemu nie mogê u¿yæ ->Stop() do LoopingSoundComponent na discordzie druidmechanics
+		LoopingSoundComponent;//->Stop() ;
 	}
 	Super::Destroyed();
 }
