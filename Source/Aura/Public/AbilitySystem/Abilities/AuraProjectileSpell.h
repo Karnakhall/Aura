@@ -8,6 +8,7 @@
 
 
 class AAuraProjectile;
+class UGameplayEffect;
 /**
  * 
  */
@@ -25,5 +26,8 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)	
 	TSubclassOf<AAuraProjectile> ProjectileClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<UGameplayEffect> DamageEffectClass;
 };
 // jak odpaliæ github copilot

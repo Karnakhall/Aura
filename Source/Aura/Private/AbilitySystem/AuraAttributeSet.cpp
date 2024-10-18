@@ -145,6 +145,7 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 	{
 		//GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Green, FString::Printf(TEXT("Health: %f"), GetHealth()));	// Print a message to the screen
 		//SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));	// Clamp the Health between 0 and MaxHealth if it doesn't change before
+		UE_LOG(LogTemp, Warning, TEXT("Changed Health on %s, Health: %f"), *Props.TargetAvatarActor->GetName(), GetHealth());
 	}
 	if (Data.EvaluatedData.Attribute == GetManaAttribute())
 	{

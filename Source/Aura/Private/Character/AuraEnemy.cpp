@@ -39,6 +39,7 @@ int32 AAuraEnemy::GetPlayerLevel()
 void AAuraEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+	InitAbilityActorInfo();
 	//check(AbilitySystemComponent);	// Check ability system component
 	
 }
@@ -47,4 +48,6 @@ void AAuraEnemy::InitAbilityActorInfo()
 {
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);		// Init ability actor info
 	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();	// Set ability actor info
+
+	InitializeDefaultAttributes();
 }
