@@ -5,7 +5,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
-#include "CharacterClassInfo.generated.h"
+#include "CharacterClassInfo.h"
 
 class UGameplayEffect;
 
