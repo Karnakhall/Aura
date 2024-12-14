@@ -2,10 +2,11 @@
 
 #pragma once
 
-
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
-#include "CharacterClassInfo.h"
+#include "GameplayEffect.h"
+#include "CharacterClassInfo.generated.h"
+
 
 class UGameplayEffect;
 
@@ -17,6 +18,7 @@ enum class ECharacterClass : uint8
 	Ranger
 };
 
+USTRUCT(BlueprintType)
 struct FCharacterClassDefaultInfo
 {
 	GENERATED_BODY()
