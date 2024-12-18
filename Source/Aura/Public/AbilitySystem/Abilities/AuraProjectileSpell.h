@@ -30,4 +30,4 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSubclassOf<UGameplayEffect> DamageEffectClass;
 };
-// jak odpaliæ github copilot
+// jak odpaliï¿½ github copilot
