@@ -153,6 +153,15 @@ public:
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Mana)	// Macro for Mana attribute
 
 
+	/*
+	 *	Meta Attributes
+	 */
+
+	UPROPERTY(BlueprintReadOnly, Category = "Meta Attributes")
+	FGameplayAttributeData IncomingDamage;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, IncomingDamage);
+
+
 	UFUNCTION()
 	void OnRep_Health(const FGameplayAttributeData& OldHealth) const;	// OnRep_Health function OldHealth compare with the Health attribute
 

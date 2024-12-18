@@ -152,6 +152,18 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 		//GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Green, FString::Printf(TEXT("Mana: %f"), GetMana()));	// Print a message to the screen
 		//SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));	// Clamp the Mana between 0 and MaxMana if it doesn't change before
 	}
+	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
+	{
+		const float LocalIncomingDamage = GetIncomingDamage();
+		SetIncomingDamage(0.f);
+		if (LocalIncomingDamage > 0.f)
+		{
+			const float NewHealth = GetHealth() - LocalIncomingDamage;
+			SetHealth(FMath::Clamp(NewHealth, 0.f, GetMaxHealth()));
+
+			const bool bFatal = NewHealth <= 0.f;
+		}
+	}
 }
 
 void UAuraAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const	
