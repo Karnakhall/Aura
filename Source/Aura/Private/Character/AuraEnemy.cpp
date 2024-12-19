@@ -2,6 +2,7 @@
 
 
 #include "Character/AuraEnemy.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAbilitySystemLibrary.h"
 #include "AbilitySystem/AuraAttributeSet.h"
@@ -53,6 +54,7 @@ void AAuraEnemy::BeginPlay()
 	Super::BeginPlay();
 	GetCharacterMovement()->MaxWalkSpeed = BaseWalkSpeed;
 	InitAbilityActorInfo();
+	UAuraAbilitySystemLibrary::GiveStartupAbilities(this, AbilitySystemComponent);
 	//check(AbilitySystemComponent);	// Check ability system component
 	
 	//Setting progress bar widget controller
