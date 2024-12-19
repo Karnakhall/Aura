@@ -28,6 +28,11 @@ public:
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }	// Get attribute set. IAbilitySystem implementation
 
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
+	
+	virtual void Die() override;		//It will be ragdoll
+
+	UFUNCTION(NetMulticast, Reliable)	//For network
+	virtual void MulticastHandleDeath();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
