@@ -1,6 +1,3 @@
-
-
-
 #include "AuraAbilityTypes.h"
 
 bool FAuraGameplayEffectContext::NetSerialize(FArchive& Ar, UPackageMap* Map, bool& bOutSuccess)
@@ -8,10 +5,3 @@ bool FAuraGameplayEffectContext::NetSerialize(FArchive& Ar, UPackageMap* Map, bo
 	return true;
 }
 
-AuraAbilityTypes::AuraAbilityTypes()
-{
-}
-
-AuraAbilityTypes::~AuraAbilityTypes()
-{
-}
