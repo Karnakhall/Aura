@@ -13,14 +13,14 @@ struct FAuraGameplayEffectContext : public FGameplayEffectContext
 
 public:
 
-	/** Returns the actual struct used for serialization, subclasses must override this! */
-	virtual UScriptStruct* GetScriptStruct() const
-	{
-		return FGameplayEffectContext::StaticStruct();
-	}
+/** Returns the actual struct used for serialization, subclasses must override this! */
+virtual UScriptStruct* GetScriptStruct() const override
+{
+	return FGameplayEffectContext::StaticStruct();
+}
 
-	/** Custom serialization, subclasses must override this */
-	virtual bool NetSerialize(FArchive& Ar, class UPackageMap* Map, bool& bOutSuccess);
+/** Custom serialization, subclasses must override this */
+virtual bool NetSerialize(FArchive& Ar, class UPackageMap* Map, bool& bOutSuccess) override;
 
 protected:
 
