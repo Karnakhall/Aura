@@ -47,21 +47,12 @@ void UAuraProjectileSpell::SpawnProjectile(const FVector& ProjectileTargetLocati
 		//TODO: Give the projctile a Gameplay Effect Spec for causing Damage. Below is the solution
 		const UAbilitySystemComponent* SourceASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetAvatarActorFromActorInfo());
 		const FGameplayEffectSpecHandle SpecHandle = SourceASC->MakeOutgoingSpec(DamageEffectClass, GetAbilityLevel(), SourceASC->MakeEffectContext());
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 		
 		FGameplayEffectContextHandle EffectContextHandle = SourceASC->MakeEffectContext();
 
 
 		const FGameplayEffectSpecHandle SpecHandle = SourceASC->MakeOutgoingSpec(DamageEffectClass, GetAbilityLevel(), EffectContextHandle);
 
-=======
->>>>>>> parent of 32fd663 (Update AuraProjectileSpell.cpp)
-=======
->>>>>>> parent of 32fd663 (Update AuraProjectileSpell.cpp)
-=======
->>>>>>> parent of 32fd663 (Update AuraProjectileSpell.cpp)
 		
 		const FAuraGameplayTags GameplayTags = FAuraGameplayTags::Get();
 		const float ScaledDamage = Damage.GetValueAtLevel(GetAbilityLevel());
