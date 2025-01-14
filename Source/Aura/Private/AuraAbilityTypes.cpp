@@ -1,7 +1,7 @@
 
 #include "AuraAbilityTypes.h"
 
-bool FAuraGameplayEffectContext::NetSerialize(FArchive& Ar, UPackageMap* Map, bool& bOutSuccess)
+bool FAuraGameplayEffectContext::NetSerialize(FArchive& Ar, UPackageMap* Map, bool& BOutSuccess)
 {
 
 	return true;
