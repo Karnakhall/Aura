@@ -23,6 +23,11 @@ AAuraEnemy::AAuraEnemy()
 	AbilitySystemComponent->SetIsReplicated(true);	// Enable replication for ability system component
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);	// Set replication mode for ability system component. We use minimal replication mode here because is AI character
 
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationRoll = false;
+	bUseControllerRotationYaw = false;
+	GetCharacterMovement()->bUseControllerDesiredRotation = true;
+
 	AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AttributeSet");	// Create attribute set
 	//Construct widget health component
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>("HealthBar");

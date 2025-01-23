@@ -42,6 +42,9 @@ void AAuraEffectActor::BeginPlay()
 
 void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)	// This is the function that will apply the effect to the target
 {
+
+	if (TargetActor->ActorHasTag(FName("Enemy")) && !bApplyEffectToEnemies) return;		// Enemies don't be pickup potion etc. Pickups will be ignore enemies
+
 	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);	// Get the Ability System Component of the target actor. Stored in pointer TargetASC.
 	if (TargetASC == nullptr) return;	// If the TargetASC is null, return. This is a safety check to prevent crashes.
 
@@ -56,10 +59,17 @@ void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGam
 	{
 		ActiveEffectHandles.Add(ActiveEffectHandle, TargetASC);	// Add the Active Effect Handle to the Active Effect Handles array
 	}
+
+	if (!bIsInfinite)
+	{
+		Destroy();
+	}
 }
 
 void AAuraEffectActor::OnOverlap(AActor* TargetActor)	// This function will be called when the actor overlaps with another actor
 {
+	if (TargetActor->ActorHasTag(FName("Enemy")) && !bApplyEffectToEnemies) return;
+
 	if (InstantEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
 	{
 		ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);		// Apply the instant effect to the target actor
@@ -76,6 +86,8 @@ void AAuraEffectActor::OnOverlap(AActor* TargetActor)	// This function will be c
 
 void AAuraEffectActor::OnEndOverlap(AActor* TargetActor)	// This function will be called when the actor ends overlap with another actor
 {
+	if (TargetActor->ActorHasTag(FName("Enemy")) && !bApplyEffectToEnemies) return;
+
 	if (InstantEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)	
 	{
 		ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);		// Apply the instant effect to the target actor
