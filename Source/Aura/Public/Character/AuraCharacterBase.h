@@ -68,6 +68,23 @@ protected:
 	virtual void InitializeDefaultAttributes() const;	// Initialize default attributes
 
 	void AddCharacterAbilities();	// Add character abilities
+
+	/* Disssolve Effects */
+
+	void Dissolve();	// Swap up material. It will be create dynamic material instance based on material instances.
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartDissolveTimeline(UMaterialInstanceDynamic* DynamicMaterialInstance);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartWeaponDissolveTimeline(UMaterialInstanceDynamic* DynamicMaterialInstance);
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<UMaterialInstance> DissolveMaterialInstance;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<UMaterialInstance> WeaponDissolveMaterialInstance;
+
 private:
 
 	UPROPERTY(EditAnywhere, Category = "Abilities")
