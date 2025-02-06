@@ -44,7 +44,7 @@ protected:
 	FName WeaponTipSocketName;	// Weapon tip socket name
 
 
-	virtual FVector GetCombatSocketLocation() override;	// Get combat socket location. ICombatInterface implementation
+	virtual FVector GetCombatSocketLocation_Implementation() override;	// Get combat socket location. ICombatInterface implementation
 
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
