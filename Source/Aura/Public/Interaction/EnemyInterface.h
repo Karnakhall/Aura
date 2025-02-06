@@ -24,4 +24,10 @@ class AURA_API IEnemyInterface
 public:
 	virtual void HighLightActor() = 0;	// Highlight the actor. Pure virtual function
 	virtual void UnHighLightActor() = 0;	// Unhighlight the actor. Pure virtual function
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void SetCombatTarget(AActor* InCombatTarget);
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	AActor* GetCombatTarget() const;
 };
