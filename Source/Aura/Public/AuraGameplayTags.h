@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
-
+using namespace std;
 /**
  * AuraGameplayTags
  * 
@@ -52,6 +52,10 @@ public:
 	FGameplayTag Damage_Physical;
 
 	FGameplayTag Abilities_Attack;
+
+	FGameplay Montage_Attack_Weapon;
+	FGameplay Montage_Attack_RightHand;
+	FGameplay Montage_Attack_LeftHand;
 
 	TMap<FGameplayTag, FGameplayTag> DamageTypesToResistences;
 
