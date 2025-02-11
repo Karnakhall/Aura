@@ -33,10 +33,14 @@ public:
 	virtual FVector GetCombatSocketLocation_Implementation() override;	// Get combat socket location. ICombatInterface implementation
 	virtual bool IsDead_Implementation() const override;
 	virtual AActor* GetAvatar_Implementation() override;
+	virtual TArray<FTaggedMontage> GetAttackMontages_Implementation() override;
 	/** End Combat Interface */
 
 	UFUNCTION(NetMulticast, Reliable)	//For network
 	virtual void MulticastHandleDeath();
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TArray<FTaggedMontage> AttackMontages;
 
 protected:
 	// Called when the game starts or when spawned
