@@ -27,12 +27,17 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;	// Get ability system component
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }	// Get attribute set. IAbilitySystem implementation
 
+	/** Combat Interface */
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
-	
 	virtual void Die() override;		//It will be ragdoll
+	virtual FVector GetCombatSocketLocation_Implementation() override;	// Get combat socket location. ICombatInterface implementation
+	virtual bool IsDead_Implementation() const override;
+	virtual AActor* GetAvatar_Implementation() override;
+	/** End Combat Interface */
 
 	UFUNCTION(NetMulticast, Reliable)	//For network
 	virtual void MulticastHandleDeath();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -43,8 +48,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	FName WeaponTipSocketName;	// Weapon tip socket name
 
-
-	virtual FVector GetCombatSocketLocation_Implementation() override;	// Get combat socket location. ICombatInterface implementation
+	bool bDead = false;
 
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
