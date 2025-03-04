@@ -28,6 +28,7 @@ struct FUIWidgetRow : public FTableRowBase
 
 
 class UAuraUserWidget;
+class UAbilityInfo;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttributeChangedSignature, float, NewValue);
 
@@ -66,6 +67,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widget Data")
 	TObjectPtr<UDataTable> MessageWidgetDataTable;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widget Data")
+	TObjectPtr<UAbilityInfo> AbilityInfo;
 
 	template<typename T>	// Template function to get a row from a DataTable by tag
 	T* GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag);	// Function to get a row from a DataTable by tag
