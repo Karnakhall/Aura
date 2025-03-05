@@ -29,6 +29,7 @@ struct FUIWidgetRow : public FTableRowBase
 
 class UAuraUserWidget;
 class UAbilityInfo;
+class UAuraAbilitySystemComponent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttributeChangedSignature, float, NewValue);
 
@@ -73,6 +74,8 @@ protected:
 
 	template<typename T>	// Template function to get a row from a DataTable by tag
 	T* GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag);	// Function to get a row from a DataTable by tag
+
+	void OnInitializeStartupAbilities(UAuraAbilitySystemComponent* AuraAbilitySystemComponent);
 };
 
 template<typename T>

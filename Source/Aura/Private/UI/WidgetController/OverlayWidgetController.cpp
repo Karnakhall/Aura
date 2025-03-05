@@ -56,26 +56,45 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 			}
 		);
 
-	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(
-		[this](const FGameplayTagContainer& AssetTags) 
+	if (UAuraAbilitySystemComponent* AuraASC = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent))
+	{
+		if (AuraASC->bStartupAbilitiesGiven)
 		{
-			for (const FGameplayTag& Tag : AssetTags)
-			{
-				// For example, say that Tag = Message.HealthPotion
-
-				//"Message.HealthPotion".MatchesTag("Message") will return True, "Message".MatchesTag("Message.HealthPotion") will return False
-				FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
-				if (Tag.MatchesTag(MessageTag)) // Check if the tag matches the message tag
-				{
-					const FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);	// Get the row from the DataTable by tag
-					MessageWidgetRowDelegate.Broadcast(*Row);	// Broadcast the row
-				}
-
-				/*const FString Msg = FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString());	// Create a message with the tag
-				GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Emerald, Msg);	// Print the tag to the screen*/
-			}
+			OnInitializeStartupAbilities(AuraASC);
 		}
-	);	// Add a lambda to the EffectAssetTags delegate
+		else
+		{
+			AuraASC->AbilitiesGivenDelegate.AddUObject(this, &UOverlayWidgetController::OnInitializeStartupAbilities);
+		}
+		
+			AuraASC->EffectAssetTags.AddLambda(
+			[this](const FGameplayTagContainer& AssetTags) 
+			{
+				for (const FGameplayTag& Tag : AssetTags)
+				{
+					// For example, say that Tag = Message.HealthPotion
+
+					//"Message.HealthPotion".MatchesTag("Message") will return True, "Message".MatchesTag("Message.HealthPotion") will return False
+					FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
+					if (Tag.MatchesTag(MessageTag)) // Check if the tag matches the message tag
+					{
+						const FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);	// Get the row from the DataTable by tag
+						MessageWidgetRowDelegate.Broadcast(*Row);	// Broadcast the row
+					}
+
+					/*const FString Msg = FString::Printf(TEXT("GE Tag: %s"), *Tag.ToString());	// Create a message with the tag
+					GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Emerald, Msg);	// Print the tag to the screen*/
+				}
+			}
+		);	// Add a lambda to the EffectAssetTags delegate
+	}
+	
+}
+
+void UOverlayWidgetController::OnInitializeStartupAbilities(UAuraAbilitySystemComponent* AuraAbilitySystemComponent)
+{
+	//TODO Get information about all given abilities, look up their Ability Info, and broadcast it to widgets.
+	if (!AuraAbilitySystemComponent->bStartupAbilitiesGiven) return;
 }
 
 

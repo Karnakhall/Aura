@@ -28,6 +28,8 @@ void UAuraAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf
 			//GiveAbilityAndActivateOnce(AbilitySpec);		// Give the ability to the owner of this component and activate it once
 		}
 	}
+	bStartupAbilitiesGiven = true;
+	AbilitiesGivenDelegate.Broadcast(this);
 }
 
 void UAuraAbilitySystemComponent::AbilityInputTagHeld(const FGameplayTag& InputTag)
