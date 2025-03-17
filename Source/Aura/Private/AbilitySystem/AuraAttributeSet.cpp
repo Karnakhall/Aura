@@ -12,6 +12,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Player/AuraPlayerController.h"
 #include "AbilitySystem/AuraAbilitySystemLibrary.h"
+#include "AuraLogChannels.h"
 
 UAuraAttributeSet::UAuraAttributeSet()
 {
@@ -107,13 +108,13 @@ void UAuraAttributeSet::PreAttributeBaseChange(const FGameplayAttribute& Attribu
 	if (Attribute == GetHealthAttribute())	// If the attribute is Health
 	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxHealth());	// Clamp the new value between 0 and MaxHealth
-		UE_LOG(LogTemp, Warning, TEXT("Health: %f"), NewValue);	// Log a message
+		UE_LOG(LogAura, Warning, TEXT("Health: %f"), NewValue);	// Log a message
 	}
 	
 	if (Attribute == GetManaAttribute())	// If the attribute is Mana
 	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxMana());	// Clamp the new value between 0 and MaxMana
-		UE_LOG(LogTemp, Warning, TEXT("Mana: %f"), NewValue);	// Log a message
+		UE_LOG(LogAura, Warning, TEXT("Mana: %f"), NewValue);	// Log a message
 	}
 }
 
@@ -207,7 +208,7 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 	{
 		const float LocalIncomingXP = GetIncomingXP();
 		SetIncomingXP(0.f);
-		UE_LOG(LogTemp, Log, TEXT("Incoming XP: %f"), LocalIncomingXP);
+		UE_LOG(LogAura, Log, TEXT("Incoming XP: %f"), LocalIncomingXP);
 	}
 }
 
