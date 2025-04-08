@@ -223,13 +223,17 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 			const int32 NumLevelUps = NewLevel - CurrentLevel;
 			if (NumLevelUps > 0)
 			{
-				// TODO: and 
-				// GetAttributePointsReward()
-				// GetSpellPointsReward()
-				// AddToPlayerLevel()
-				// AddToAttributePoints() 
-				// AddToSpellPoints()
-				// Fill up Health and Mana
+				const int32 AttributePointsReward = IPlayerInterface::Execute_GetAttributePointsReward(Props.SourceCharacter, CurrentLevel);
+				const int32 SpellPointReward = IPlayerInterface::Execute_GetSpellPointsReward(Props.SourceCharacter, CurrentLevel);
+				
+				IPlayerInterface::Execute_AddToPlayerLevel(Props.SourceCharacter, NumLevelUps);
+				IPlayerInterface::Execute_AddToAttributePoints(Props.SourceCharacter, AttributePointsReward);
+				IPlayerInterface::Execute_AddToSpellPoints(Props.SourceCharacter, SpellPointReward);
+				
+				// Fill up Health and Mana after level up
+				SetHealth(GetMaxHealth());
+				SetMana(GetMaxMana());
+				
 
 				IPlayerInterface::Execute_LevelUp(Props.SourceCharacter);
 			}
