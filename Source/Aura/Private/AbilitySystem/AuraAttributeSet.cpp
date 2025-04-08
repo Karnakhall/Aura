@@ -212,8 +212,28 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 		SetIncomingXP(0.f);
 
 		//TODO: See if we should level up
-		if (Props.SourceCharacter->Implements<UPlayerInterface>())
+
+		// Source Character is the owner, since GA_ListenForEvents applies GE_EventBasedEffect, adding to IcomingXP
+		if (Props.SourceCharacter->Implements<UPlayerInterface>() && Props.SourceCharacter->Implements<UCombatInterface>())
 		{
+			const int32 CurrentLevel = ICombatInterface::Execute_GetPlayerLevel(Props.SourceCharacter);
+			const int32 CurrentXP = IPlayerInterface::Execute_GetXP(Props.SourceCharacter);
+
+			const int32 NewLevel = IPlayerInterface::Execute_FindLevelForXP(Props.SourceCharacter, CurrentXP + LocalIncomingXP);
+			const int32 NumLevelUps = NewLevel - CurrentLevel;
+			if (NumLevelUps > 0)
+			{
+				// TODO: and 
+				// GetAttributePointsReward()
+				// GetSpellPointsReward()
+				// AddToPlayerLevel()
+				// AddToAttributePoints() 
+				// AddToSpellPoints()
+				// Fill up Health and Mana
+
+				IPlayerInterface::Execute_LevelUp(Props.SourceCharacter);
+			}
+
 			IPlayerInterface::Execute_AddToXP(Props.SourceCharacter, LocalIncomingXP);
 		}
 		
