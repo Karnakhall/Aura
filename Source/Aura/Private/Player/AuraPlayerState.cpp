@@ -50,18 +50,6 @@ void AAuraPlayerState::AddToLevel(int32 InLevel)
 	OnLevelChangedDelegate.Broadcast(Level);
 }
 
-void AAuraPlayerState::AddToAttributePoints(int32 InAttribute)	//Maybe I should change name InAttribute to InPoints
-{
-	AttributePoints += InAttribute;
-	OnAttributePointsChangedDelegate.Broadcast(AttributePoints);
-}
-
-void AAuraPlayerState::AddToSpellPoints(int32 InSpell)	//Maybe I should change name InSpell to InPoints
-{
-	SpellPoints += InSpell;
-	OnSpellPointsChangedDelegate.Broadcast(SpellPoints);
-}
-
 void AAuraPlayerState::SetXP(int32 InXP)
 {
 	XP = InXP;
@@ -73,7 +61,7 @@ void AAuraPlayerState::SetLevel(int32 InLevel)
 	Level = InLevel;
 	OnLevelChangedDelegate.Broadcast(Level);
 }
-
+/*
 void AAuraPlayerState::SetAttributePoints(int32 InAttribute)
 {
 	AttributePoints = InAttribute;
@@ -85,7 +73,7 @@ void AAuraPlayerState::SetSpellPoints(int32 InSpell)
 	SpellPoints = InSpell;
 	OnSpellPointsChangedDelegate.Broadcast(SpellPoints);
 }
-
+*/
 void AAuraPlayerState::OnRep_Level(int32 OldLevel)
 {
 	OnLevelChangedDelegate.Broadcast(Level);
@@ -103,5 +91,17 @@ void AAuraPlayerState::OnRep_AttributePoints(int32 OldAttributePoints)
 
 void AAuraPlayerState::OnRep_SpellPoints(int32 OldSpellPoints)
 {
+	OnSpellPointsChangedDelegate.Broadcast(SpellPoints);
+}
+
+void AAuraPlayerState::AddToAttributePoints(int32 InPoints)	//Maybe I should change name InAttribute to InPoints
+{
+	AttributePoints += InPoints;
+	OnAttributePointsChangedDelegate.Broadcast(AttributePoints);
+}
+
+void AAuraPlayerState::AddToSpellPoints(int32 InPoints)	//Maybe I should change name InSpell to InPoints
+{
+	SpellPoints += InPoints;
 	OnSpellPointsChangedDelegate.Broadcast(SpellPoints);
 }

@@ -54,6 +54,12 @@ void UAttributeMenuWidgetController::BroadcastInitialValues()
 	AttributePointsChangedDelegate.Broadcast(AuraPlayerState->GetAttributePoints());
 }
 
+void UAttributeMenuWidgetController::UpgradeAttribute(const FGameplayTag& AttributeTag)
+{
+	UAuraAbilitySystemComponent* AuraASC = CastChecked<UAuraAbilitySystemComponent>(AbilitySystemComponent);
+	AuraASC->UpgradeAttribute(AttributeTag);
+}
+
 void UAttributeMenuWidgetController::BroadcastAttributeInfo(const FGameplayTag& AttributeTag, const FGameplayAttribute& Attribute) const
 {
 	FAuraAttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(AttributeTag);		// Find the attribute info for the tag

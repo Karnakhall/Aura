@@ -42,13 +42,13 @@ public:
 
 	void AddToXP(int32 InXP);
 	void AddToLevel(int32 InLevel);
-	void AddToAttributePoints(int32 InAttribute);
-	void AddToSpellPoints(int32 InSpell);
+	void AddToAttributePoints(int32 InPoints);
+	void AddToSpellPoints(int32 InPoints);
 
 	void SetXP(int32 InXP);
 	void SetLevel(int32 InLevel);
-	void SetAttributePoints(int32 InAttribute);
-	void SetSpellPoints(int32 InSpell);
+	//void SetAttributePoints(int32 InAttribute);
+	//void SetSpellPoints(int32 InSpell);
 protected:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
