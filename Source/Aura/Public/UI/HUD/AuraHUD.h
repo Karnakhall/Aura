@@ -11,8 +11,8 @@ class UOverlayWidgetController;
 class UAuraUserWidget;
 class UAbilitySystemComponent;
 class UAttributeSet;
-
 struct FWidgetControllerParams;
+class USpellMenuWidgetController;
 /**
  * 
  */
@@ -25,6 +25,7 @@ public:
 
 	UOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);	// Function to get the overlay widget controller
 	UAttributeMenuWidgetController* GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams);	// Function to get the attribute menu widget controller
+	USpellMenuWidgetController* GetSpellMenuWidgetController(const FWidgetControllerParams& WCParams);	// Function to get the spell menu widget controller
 
 	void InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySystemComponent* ASC, UAttributeSet* AS);	// Function to initialize the overlay
 
@@ -50,4 +51,10 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UAttributeMenuWidgetController> AttributeMenuWidgetControllerClass;	// The class of the attribute menu widget controller
+
+	UPROPERTY()
+	TObjectPtr<USpellMenuWidgetController> SpellMenuWidgetController;	// The spell menu widget controller
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<USpellMenuWidgetController> SpellMenuWidgetControllerClass;	// The class of the spell menu widget controller
 };
