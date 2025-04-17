@@ -29,3 +29,7 @@ void USpellMenuWidgetController::BindCallbacksToDependencies()
 			SpellPointsChanged.Broadcast(SpellPoints);
 		});
 }
+
+void USpellMenuWidgetController::SpellGlobeSelected(const FGameplayTag& AbilityTag)
+{
+}
