@@ -44,6 +44,10 @@ public:
 	void ServerUpgradeAttribute(const FGameplayTag& AttributeTag);
 
 	void UpdateAbilityStatuses(int32 Level);
+
+	UFUNCTION(Server, Reliable)
+	void ServerSpendSpellPoint(const FGameplayTag& AbilityTag);
+
 protected:
 
 	virtual void OnRep_ActivateAbilities() override;

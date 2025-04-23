@@ -188,6 +188,20 @@ void UAuraAbilitySystemComponent::UpdateAbilityStatuses(int32 Level)
 	}
 }
 
+void UAuraAbilitySystemComponent::ServerSpendSpellPoint_Implementation(const FGameplayTag& AbilityTag)
+{
+	if (FGameplayAbilitySpec* AbilitySpec = GetSpecFromAbilityTag(AbilityTag))
+	{
+		const FAuraGameplayTags GameplayTags = FAuraGameplayTags::Get();
+
+		FGameplayTag Status = GetStatusFromSpec(*AbilitySpec);
+		if (Status.MatchesTagExact(FAuraGameplayTags::Get().Abilities_Status_Eligible))
+		{
+
+		}
+	}
+}
+
 void UAuraAbilitySystemComponent::OnRep_ActivateAbilities()
 {
 	Super::OnRep_ActivateAbilities();
