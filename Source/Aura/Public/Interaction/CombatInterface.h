@@ -9,7 +9,11 @@
 //#include "NiagaraSystem.h"
 #include "CombatInterface.generated.h"
 
+class UAbilitySystemComponent;
 class UNiagaraSystem;
+class UAnimMontage;
+
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnASCRegistered, UAbilitySystemComponent* )
 
 USTRUCT(BlueprintType)
 struct FTaggedMontage
@@ -84,4 +88,6 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	ECharacterClass GetCharacterClass();
+
+	virtual FOnASCRegistered GetOnASCRegisteredDelegate() = 0;
 };
