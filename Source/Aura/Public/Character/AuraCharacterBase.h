@@ -33,7 +33,7 @@ public:
 
 	/** Combat Interface */
 	virtual UAnimMontage* GetHitReactMontage_Implementation() override;
-	virtual void Die() override;		//It will be ragdoll
+	virtual void Die(const FVector& DeathImpulse) override;		//It will be ragdoll
 	virtual FVector GetCombatSocketLocation_Implementation(const FGameplayTag& MontageTag) override;	// Get combat socket location. ICombatInterface implementation
 	virtual bool IsDead_Implementation() const override;
 	virtual AActor* GetAvatar_Implementation() override;
@@ -51,7 +51,7 @@ public:
 	FOnDeath OnDeath;
 
 	UFUNCTION(NetMulticast, Reliable)	//For network
-	virtual void MulticastHandleDeath();
+	virtual void MulticastHandleDeath(const FVector& DeathImpulse);
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TArray<FTaggedMontage> AttackMontages;
