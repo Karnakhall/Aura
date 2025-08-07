@@ -43,6 +43,10 @@
 		{
 			"Name": "MotionWarping",
 			"Enabled": true
+		},
+		{
+			"Name": "BlueprintSnapNodes",
+			"Enabled": true
 		}
 	]
 }
