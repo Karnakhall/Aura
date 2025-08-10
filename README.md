@@ -22,6 +22,7 @@ Technologie
 
 Status
 Projekt edukacyjny – nie jest w pełni ukończoną grą.
+
 English below
 
 Aura is an educational project created in Unreal Engine 5 while learning C++ game development.  
