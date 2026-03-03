@@ -20,7 +20,7 @@ protected:
 	
 	virtual void BeginPlay() override;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	TObjectPtr<UDecalComponent> MagicCircleDecal;
 
 };
