@@ -154,6 +154,14 @@ int32 AAuraCharacter::GetSpellPoints_Implementation() const
 	return AuraPlayerState->GetSpellPoints();
 }
 
+void AAuraCharacter::ShowMagicCircle_Implementation(UMaterialInterface* DecalMaterial)
+{
+}
+
+void AAuraCharacter::HideMagicCircle_Implementation()
+{
+}
+
 int32 AAuraCharacter::GetPlayerLevel_Implementation()
 {
 	const AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
